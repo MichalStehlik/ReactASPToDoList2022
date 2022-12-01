@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using ReactASPToDoList2022.Models.InputModels;
 using ReactASPToDoList2022.Services;
 
 namespace ReactASPToDoList2022.Controllers
@@ -27,6 +28,13 @@ namespace ReactASPToDoList2022.Controllers
                 return Unauthorized();
             }
             return Ok(token);
+        }
+
+        [HttpPost("register")]
+        public async Task<IActionResult> Register(RegisterIM entry)
+        {
+            var user = await _as.Register(entry);
+            return Ok(user);
         }
     }
 }

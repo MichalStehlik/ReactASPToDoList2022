@@ -1,11 +1,13 @@
 ﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using ReactASPToDoList2022.Data;
 using ReactASPToDoList2022.Models;
+using ReactASPToDoList2022.Models.InputModels;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using AuthenticationToken = ReactASPToDoList2022.Models.AuthenticationToken;
+using AuthenticationToken = Microsoft.AspNetCore.Authentication.AuthenticationToken;
 
 namespace ReactASPToDoList2022.Services
 {
@@ -28,6 +30,18 @@ namespace ReactASPToDoList2022.Services
                 return null;
             }
             return CreateAuthenticationToken(u);
+        }
+
+        public async Task<User> Register(RegisterIM values)
+        {
+            User user = new User
+            {
+                Username = values.Username,
+                Password = values.Password
+            };
+            _context.Users.Add(user);
+            await _context.SaveChangesAsync();
+            return user;
         }
 
         private AuthenticationToken CreateAuthenticationToken(User user)
@@ -54,7 +68,8 @@ namespace ReactASPToDoList2022.Services
 
             return new AuthenticationToken()
             {
-                Token = tokenHandler.WriteToken(token),
+                Name = "authorization_token",
+                Value = tokenHandler.WriteToken(token),
             };
         }
     }

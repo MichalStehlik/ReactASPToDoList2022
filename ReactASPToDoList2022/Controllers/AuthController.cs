@@ -19,10 +19,10 @@ namespace ReactASPToDoList2022.Controllers
         }
 
         [HttpPost("authenticate")]
-        public IActionResult Authenticate(string username, string password)
+        public IActionResult Authenticate(LoginIM credentials)
         {
-            var token = _as.Authenticate(new Models.User { Username = username, 
-                Password = password});
+            var token = _as.Authenticate(new Models.User { Username = credentials.Username, 
+                Password = credentials.Password});
             if (token == null)
             {
                 return Unauthorized();

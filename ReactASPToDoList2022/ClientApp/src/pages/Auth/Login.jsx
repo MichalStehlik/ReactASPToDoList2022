@@ -13,7 +13,7 @@ export const Login = () => {
             password: data.password
         })
         .then(response => {
-            dispatch({type: SET_ACCESS_TOKEN, payload: response.data.token});
+            dispatch({type: SET_ACCESS_TOKEN, payload: response.data.value});
             navigate("/");
         })
         .catch(error => {

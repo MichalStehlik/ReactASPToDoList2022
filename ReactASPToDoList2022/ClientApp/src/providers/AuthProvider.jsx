@@ -16,12 +16,14 @@ const initialState = {
 }
 
 const reducer = (state, action) => {
+    console.log(state, action);
     switch (action.type) {
         case SET_ACCESS_TOKEN:
             let tokenData = parseJwt(action.payload);
             return { ...state, accessToken: action.payload, userId: tokenData.sub, profile: tokenData }
         case CLEAR_ACCESS_TOKEN:
             return { ...state, accessToken: null, userId: null, profile: null }
+        default: return state;
     }
 }
 

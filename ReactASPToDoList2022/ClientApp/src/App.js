@@ -8,11 +8,15 @@ import {AuthLayout} from "./pages/Auth"
 import {Login} from "./pages/Auth/Login"
 import {UsersLayout} from "./pages/Users"
 import {List as UsersList} from "./pages/Users/List"
+import {NotFound} from "./pages/Special/NotFound"
+import {Unauthorized} from "./pages/Special/Unauthorized"
+import {useAuthContext} from "./providers/AuthProvider"
 
-export default class App extends Component {
-  static displayName = App.name;
 
-  render() {
+export const App = () => {
+  let displayName = App.name;
+  //const [{profile, accessToken}] = useAuthContext();
+
     return (
       <Routes>
         <Route path="/" element={<FrontLayout />}>
@@ -24,7 +28,10 @@ export default class App extends Component {
         <Route path="/users" element={<UsersLayout />}>
           <Route index element={<UsersList />} />
         </Route>
+        <Route path="/unauthorized" element={<Unauthorized />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     );
-  }
 }
+
+export default App;
